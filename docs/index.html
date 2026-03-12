@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COCOPAY API Docs</title>
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="page">
+    <aside class="sidebar">
+      <div class="logo-box">
+        <div class="logo-mark">C</div>
+        <div>
+          <h1>COCOPAY API</h1>
+          <p>Merchant Developer Docs</p>
+        </div>
+      </div>
+      <nav>
+        <a href="#intro">Introduction</a>
+        <a href="#signature">Signature</a>
+        <a href="#deposit">Deposit</a>
+        <a href="#withdrawal">Withdrawal</a>
+        <a href="#checkdeposit">CheckDeposit</a>
+        <a href="#checkwithdrawal">CheckWithdrawal</a>
+        <a href="#checkbalance">CheckBalance</a>
+        <a href="#callbacks">Callbacks</a>
+        <a href="#bankcode">BankCode [GET]</a>
+      </nav>
+    </aside>
+
+    <main class="content">
+      <section id="intro" class="hero">
+        <span class="tag">JSON POST INTEGRATION</span>
+        <h2>COCOPAY Merchant API</h2>
+        <p>All COCOPAY API data is sent using JSON POST. Request authentication uses MD5 signatures generated from ascending-sorted parameters with <code>token={secretkey}</code> appended at the end.</p>
+        <div class="hero-panels">
+          <div class="hero-panel"><strong>Base API</strong><code>https://api.cocobirdpay.com/API</code></div>
+          <div class="hero-panel"><strong>Merchant</strong><p>Please ask provider</p></div>
+          <div class="hero-panel"><strong>Secret Key</strong><p>Please ask provider</p></div>
+        </div>
+      </section>
+
+      <section id="signature" class="panel">
+        <h3>Signature Rule</h3>
+        <p>MD5 signature format:</p>
+        <pre><code>Signature = MD5(field_1=value_1&field_2=value_2&field_x=value_x&token={secretkey})</code></pre>
+      </section>
+
+      <section id="deposit" class="panel endpoint-card">
+        <div class="endpoint-top">
+          <div>
+            <span class="method post">POST</span>
+            <h3>SetDeposit</h3>
+          </div>
+          <code>https://api.cocobirdpay.com/API/SetDeposit</code>
+        </div>
+        <p>Create a deposit transaction.</p>
+        <div class="grid cols-2">
+          <div class="mini-card"><strong>Type</strong><p>BANK / QRCODE</p></div>
+          <div class="mini-card"><strong>Required Signature</strong><p>MD5 hash string</p></div>
+        </div>
+        <h4>Signature</h4>
+        <pre><code>accno={accno}&amount={amount}&bankcode={bankcode}&fullname={fullname}&membercode={membercode}&merchant={merchant}&notifurl={notifurl}&transactionid={transactionid}&type={type}&token={secretkey}</code></pre>
+      </section>
+
+      <section id="withdrawal" class="panel endpoint-card">
+        <div class="endpoint-top">
+          <div>
+            <span class="method post">POST</span>
+            <h3>SetWithdrawal</h3>
+          </div>
+          <code>https://api.cocobirdpay.com/API/SetWithdrawal</code>
+        </div>
+        <p>Create a withdrawal request.</p>
+        <h4>Signature</h4>
+        <pre><code>accountno={accountno}&amount={amount}&bankcode={bankcode}&fullname={fullname}&membercode={membercode}&merchant={merchant}&notifurl={notifurl}&transactionid={transactionid}&token={secretkey}</code></pre>
+      </section>
+
+      <section id="checkdeposit" class="panel split-panel">
+        <div class="tile">
+          <span class="method post">POST</span>
+          <h3>CheckDeposit</h3>
+          <code>https://api.cocobirdpay.com/API/CheckDeposit</code>
+          <p>Check deposit transaction status.</p>
+          <pre><code>merchant={merchantkey}&tid={tid}&transactionid={transactionid}&token={secretkey}</code></pre>
+        </div>
+        <div class="tile">
+          <span class="method post">POST</span>
+          <h3>CheckWithdrawal</h3>
+          <code>https://api.cocobirdpay.com/API/CheckWithdrawal</code>
+          <p>Check withdrawal status.</p>
+          <pre><code>merchant={merchantkey}&withdrawalid={withdrawalid}&token={secretkey}</code></pre>
+        </div>
+      </section>
+
+      <section id="checkbalance" class="panel endpoint-card">
+        <div class="endpoint-top">
+          <div>
+            <span class="method post">POST</span>
+            <h3>CheckBalance</h3>
+          </div>
+          <code>https://api.cocobirdpay.com/API/CheckBalance</code>
+        </div>
+        <p>Check merchant balance.</p>
+        <pre><code>merchant={merchant}&token={secretkey}</code></pre>
+      </section>
+
+      <section id="callbacks" class="panel split-panel">
+        <div class="tile">
+          <h3>Deposit Callback Notif</h3>
+          <p>Returns merchant, transactionid, tid, amount, status, and sign.</p>
+          <pre><code>amount={amount}&merchant={merchant}&status={status}&tid={tid}&transactionid={transactionid}&token={secretkey}</code></pre>
+        </div>
+        <div class="tile">
+          <h3>Withdrawal Callback Notif</h3>
+          <p>Returns merchant, transactionid, tid, amount, status, and sign.</p>
+          <pre><code>amount={amount}&merchant={merchant}&status={status}&tid={tid}&transactionid={transactionid}&token={secretkey}</code></pre>
+        </div>
+      </section>
+
+      <section id="bankcode" class="panel endpoint-card">
+        <div class="endpoint-top">
+          <div>
+            <span class="method get">GET</span>
+            <h3>BankCode</h3>
+          </div>
+          <code>https://api.cocobirdpay.com/API/BankCode</code>
+        </div>
+        <p>Retrieve bank code data.</p>
+        <div class="table-shell">
+          <table>
+            <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+            <tbody>
+              <tr><td>BankCode</td><td>String</td><td>Bank Code</td></tr>
+              <tr><td>BankName</td><td>String</td><td>Bank Name</td></tr>
+              <tr><td>FlgMaintenance</td><td>Bool</td><td>Maintenance flag</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+</body>
+</html>
