@@ -69,7 +69,7 @@ body {
 .method.post { background: #dcfce7; color: #166534; }
 .method.get { background: #ffedd5; color: #c2410c; }
 code {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #fff4ea; padding: 0.2rem 0.4rem; border-radius: 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background: #fff4ea; color: #7a3b00; padding: 0.2rem 0.4rem; border-radius: 6px;
 }
 pre {
   overflow-x: auto; background: #fff4e8; color: #7a3b00; padding: 16px; border-radius: 16px; border: 1px solid #f3c89f;
